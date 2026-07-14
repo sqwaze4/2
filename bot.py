@@ -93,36 +93,36 @@ async def build_message():
     total_online = sum(result[2] for _, result in combined)
 
     lines = []
-    lines.append("## ** OUR GAMES **")
+    lines.append("## **OUR GAMES **")
 
     for uid, (name, status, players, link) in combined:
         status_text = "Active" if status else "Down"
         icon = "🟢" if status else "🔴"
         block = (
-            f"**{name}**\n"
-            f"> * Game Status: {status_text} {icon}\n"
-            f"> * Online: {players} 👥\n"
-            f"[JOIN GAME](<{link}>) 👈\n"
+            f"***{name}***\n"
+            f"> -# Game Status: {status_text} {icon}\n"
+            f"> -# Online: {players} 👥\n"
+            f"[__**JOIN GAME**__](<{link}>) \n"
         )
         lines.append(block)
 
-    lines.append(f"**Total Online: {total_online} 👥**\n")
+    lines.append(f"-# **Total Online: {total_online}** 👥")
 
     group_lines = []
     for gid, (group_name, member_count, is_locked) in zip(GROUP_IDS, groups_results):
         if not is_locked:
             group_link = f"https://www.roblox.com/groups/{gid}"
             group_lines.append(
-                f"**{group_name}**\n"
-                f"> * Members: {member_count:,} 👥\n"
-                f"[JOIN GROUP](<{group_link}>) 👈\n"
+                f"***{group_name}***\n"
+                f"> -# Members: {member_count:,} 👥\n"
+                f"[__**JOIN GROUP**__](<{group_link}>) \n"
             )
 
     if group_lines:
-        lines.append("## \n** OUR GROUPS **")
+        lines.append("## **OUR GROUP**")
         lines.extend(group_lines)
 
-    lines.append(f"\n⏱ Last Update: <t:{now}:R>")
+    lines.append(f"-# **Last Update:** <t:{now}:R>")
 
     content = "\n".join(lines)
     chunks = []
